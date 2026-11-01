@@ -36,7 +36,7 @@ body.portrait #pad{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 body.portrait .hint{display:block}
 .hint{display:none;position:fixed;left:0;right:0;top:calc(56.25vw + 8px);text-align:center;color:#ffe9b0;font:12px ui-monospace,Menlo,Consolas,monospace;opacity:.8;pointer-events:none}
 body[data-mode="title"] .hint,body[data-mode="entry"] .hint,body[data-mode="board"] .hint,body[data-mode="gameover"] .hint{display:none!important}
-/* Platz fuer fremde Einblendungen (z.B. Netlify-Badge) rechts unten */
+/* Platz fuer fremde Einblendungen rechts unten */
 #acts{margin-bottom:48px}
 @media (max-height:420px){#acts{margin-bottom:44px}}
 </style>
@@ -2684,12 +2684,16 @@ cv.addEventListener('pointerdown', e => { audioInit(); const r = cv.getBoundingC
 cv.addEventListener('contextmenu', e => e.preventDefault());
 
 function layout() {
-  const vw = innerWidth, vh = innerHeight, portrait = vh > vw; let w, h;
+  const vw = innerWidth || document.documentElement.clientWidth || screen.width || 800, vh = innerHeight || document.documentElement.clientHeight || screen.height || 450, portrait = vh > vw; let w, h;
   document.body.classList.toggle('portrait', portrait);
   if (portrait) { w = vw; h = Math.round(w * H / W); } else { h = vh; w = Math.round(h * W / H); if (w > vw) { w = vw; h = Math.round(w * H / W); } }
-  cv.style.width = w + 'px'; cv.style.height = h + 'px';
+  cv.style.width = Math.max(w, 160) + 'px'; cv.style.height = Math.max(h, 90) + 'px';
 }
-addEventListener('resize', layout); addEventListener('orientationchange', layout); layout();
+addEventListener('resize', layout); addEventListener('pageshow', layout);
+addEventListener('orientationchange', () => { layout(); setTimeout(layout, 200); setTimeout(layout, 700); });
+if (window.visualViewport) visualViewport.addEventListener('resize', layout);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) layout(); });
+layout(); [100, 400, 1000, 2500].forEach(t => setTimeout(layout, t));
 if (('ontouchstart' in window) || matchMedia('(pointer:coarse)').matches) document.body.classList.add('touch');
 
 let last = 0, acc = 0, lastMode = '';

@@ -1,12 +1,3 @@
-SCHATTENKLINGE - App-Paket (flache Version, alle Dateien ohne Unterordner)
-
-GitHub Pages:
-1. Auf github.com ein neues Repository anlegen (Name z.B. schattenklinge, Public).
-2. "Add file" -> "Upload files": ALLE Dateien dieses Pakets hochladen (index.html, sw.js,
-   manifest.webmanifest und alle .png-Bilder) -> "Commit changes".
-3. Repository -> Settings -> Pages -> Source: "Deploy from a branch", Branch: main, Ordner: / (root) -> Save.
-4. Nach 1-2 Minuten ist das Spiel unter https://DEINNAME.github.io/schattenklinge/ erreichbar.
-5. Auf dem Handy oeffnen und installieren (Chrome: Menue -> "App installieren";
-   Safari: Teilen -> "Zum Home-Bildschirm").
-
-Update: neue Dateien hochladen und in sw.js die Zahl in 'schattenklinge-v2' erhoehen (z.B. v3).
+SCHATTENKLINGE - flache Version (alle Dateien ohne Unterordner)
+Alle Dateien in das GitHub-Repository hochladen und bestehende Dateien ersetzen.
+Alte App vom Handy loeschen, dann neu von der Pages-Adresse installieren.
